@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+    <context:property-placeholder location="classpath:jhouse.properties" />
+
+    <!--<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+    <!--<property name="dataSource" ref="jhouseDataSource" />-->
+    <!--<property name="persistenceUnitName" value="jhouse-db" />-->
+    <!--<property name="jpaVendorAdapter">-->
+    <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
+    <!--<property name="databasePlatform" value="${hibernate.dialect}"/>-->
+    <!--<property name="showSql" value="${hibernate.showSql}"/>-->
+    <!--<property name="generateDdl" value="true" />-->
+    <!--</bean>-->
+    <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="jhouseDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+    <!--<property name="driverClass" value="${database.driver.class}"/>-->
+    <!--<property name="jdbcUrl" value="${database.url}" />-->
+    <!--<property name="user" value="${database.user}"/>-->
+    <!--<property name="password" value="${database.password}"/>-->
+    <!--<property name="minPoolSize" value="${database.minPoolSize}"/>-->
+    <!--<property name="initialPoolSize" value="${database.initialPoolSize}"/>-->
+    <!--<property name="maxPoolSize" value="${database.maxPoolSize}"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
+    <!--<property name="entityManagerFactory" ref="entityManagerFactory" />-->
+    <!--</bean>-->
+
+    <!--<tx:annotation-driven transaction-manager="transactionManager" />-->
+    <!--<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />-->
+
+
+    <!--<bean id="bus" class="eu.jhouse.server.bus.BusImpl">-->
+    <!--<property name="eventMapping">-->
+    <!--<map>-->
+    <!--<entry key="eu.jhouse.server.device.SensorsChangedEvent">-->
+    <!--<set>-->
+    <!--<bean class="eu.jhouse.server.brain.SensorChangedEventListener"/>-->
+    <!--</set>-->
+    <!--</entry>-->
+    <!--</map>-->
+    <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="network" class="pl.jhouse.server.onewire.OneWireNetwork"/>-->
+    <!--<bean id="deviceManager" class="pl.jhouse.server.DeviceConfigurationServiceJPA"/>-->
+    <!--<bean id="databaseLogger" class="pl.jhouse.server.logging.DatabaseDeviceReadListener"/>-->
+    <bean id="server" class="eu.jhouse.server.Server" init-method="run">
+        <property name="reader" ref="communicationReader"/>
+        <property name="writer" ref="communicationWriter"/>
+    </bean>
+
+    <bean id="brain" class="eu.jhouse.server.brain.Brain" init-method="init">
+        <property name="pathToLogicFile" value="${jhouse.brain.logicFilePath}"/>
+    </bean>
+
+    <bean id="owfsFileSystemFactory" class="eu.jhouse.server.onewire.OWFSFileSystemFactory">
+        <property name="OWFSServerAddress" value="${jhouse.owfs.server.address}"/>
+    </bean>
+
+    <bean id="communicationReader" class="eu.jhouse.server.onewire.OWFSCommunicationReader">
+        <property name="fileSystem">
+            <bean factory-bean="owfsFileSystemFactory" factory-method="createOWFSFileSystem"/>
+        </property>
+        <property name="inputDevices">
+            <set>
+                <ref bean="deviceInputNowy"/>
+                <ref bean="deviceInputStary"/>
+            </set>
+        </property>
+        <property name="outputDevices">
+            <set>
+                <ref bean="deviceOutputNowy"/>
+                <ref bean="deviceOutputStary"/>
+            </set>
+        </property>
+    </bean>
+    <bean id="communicationWriter" class="eu.jhouse.server.onewire.OWFSCommunicationWriter"/>
+
+
+    <bean id="bus" class="eu.jhouse.server.bus.BusImpl">
+        <property name="eventMapping">
+            <map>
+                <entry key="eu.jhouse.server.device.SensorsChangedEvent">
+                    <set>
+                        <bean class="eu.jhouse.server.brain.SensorChangedEventListener"/>
+                        <bean class="eu.jhouse.server.brain.SensorChangedBrainConnector">
+                            <property name="brain" ref="brain"/>
+                        </bean>
+                    </set>
+                </entry>
+                <entry key="eu.jhouse.server.device.ActorsChangedEvent">
+                    <set>
+                        <bean class="eu.jhouse.server.brain.ActorChangedBrainConnector">
+                            <property name="brain" ref="brain"/>
+                        </bean>
+                    </set>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="deviceInputNowy" class="eu.jhouse.server.device.InputSwitchDevice">
+        <property name="id" value="29.BE1E00000000E9"/>
+        <property name="name" value="WejsciowyNowy"/>
+        <property name="bus" ref="bus"/>
+        <property name="units">
+            <list>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyNowy-IN-1"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyNowy-IN-2"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyNowy-IN-3"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyNowy-IN-4"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyNowy-IN-5"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyNowy-IN-6"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyNowy-IN-7"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyNowy-IN-8"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="deviceInputStary" class="eu.jhouse.server.device.InputSwitchDevice">
+        <property name="id" value="29.74E00300000035"/>
+        <property name="name" value="WejsciowyStaryKlocek"/>
+        <property name="bus" ref="bus"/>
+        <property name="units">
+            <list>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyStaryKlocek-IN-1"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyStaryKlocek-IN-2"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyStaryKlocek-IN-3"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyStaryKlocek-IN-4"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyStaryKlocek-IN-5"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyStaryKlocek-IN-6"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyStaryKlocek-IN-7"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Sensor">
+                    <property name="name" value="WejsciowyStaryKlocek-IN-8"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="deviceOutputStary" class="eu.jhouse.server.device.OutputSwitchDevice">
+        <property name="id" value="29.83E003000000C2"/>
+        <property name="name" value="WyjsciowyStaryKlocek"/>
+        <property name="bus" ref="bus"/>
+        <property name="connectionWriter" ref="communicationWriter"/>
+        <property name="units">
+            <list>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyStaryKlocek-IN-1"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyStaryKlocek-IN-2"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyStaryKlocek-IN-3"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyStaryKlocek-IN-4"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyStaryKlocek-IN-5"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyStaryKlocek-IN-6"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyStaryKlocek-IN-7"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyStaryKlocek-IN-8"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="deviceOutputNowy" class="eu.jhouse.server.device.OutputSwitchDevice">
+        <property name="id" value="29.BF1E00000000DE"/>
+        <property name="name" value="WyjsciowyNowyKlocek"/>
+        <property name="bus" ref="bus"/>
+        <property name="connectionWriter" ref="communicationWriter"/>
+        <property name="units">
+            <list>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyNowyKlocek-IN-1"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyNowyKlocek-IN-2"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyNowyKlocek-IN-3"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyNowyKlocek-IN-4"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyNowyKlocek-IN-5"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyNowyKlocek-IN-6"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyNowyKlocek-IN-7"/>
+                </bean>
+                <bean class="eu.jhouse.server.device.Actor">
+                    <property name="name" value="WyjsciowyNowyKlocek-IN-8"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--<bean id="infoService" class="pl.jhouse.server.service.InfoServiceImpl">-->
+        <!--&lt;!&ndash; any additional properties, maybe a DAO? &ndash;&gt;-->
+    <!--</bean>-->
+
+    <!--<bean name="hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">-->
+        <!--<property name="service" ref="infoService"/>-->
+        <!--<property name="serviceInterface" value="pl.jhouse.server.service.InfoService"/>-->
+    <!--</bean>-->
+
+    <!--<bean name="graphController" class="pl.jhouse.server.service.GraphServiceHTTP">-->
+    <!--<property name="infoService" ref="infoService"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="publicUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+    <!--<property name="mappings">-->
+    <!--<value>-->
+    <!--/remoting/test=hessian-->
+    <!--/graph/*.png=graphController-->
+    <!--</value>-->
+    <!--</property>-->
+    <!--</bean>-->
+</beans>

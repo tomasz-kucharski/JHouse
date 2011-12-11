@@ -1,0 +1,21 @@
+package eu.jhouse.server.brain
+
+import eu.jhouse.server.device.Sensor
+import eu.jhouse.server.device.Actor
+
+rule "Switch1 should manage Light1"
+	when
+		Sensor( enabled == true, name == "Switch1")
+		$a : Actor(name == "Light1")
+	then
+	    $a.changeEnabled();
+		System.out.println("Changing state for actor: "+$a.getName()+", new state: "+$a.isEnabled());
+end
+
+rule "change state for actor Light2"
+	when
+		$a : Actor(name == "Light2")
+	then
+	    $a.changeEnabled();
+		System.out.println("Changing state for actor: "+$a.getName()+", new state: "+$a.isEnabled());
+end

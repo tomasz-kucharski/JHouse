@@ -1,0 +1,56 @@
+package eu.jhouse.server.brain
+
+import eu.jhouse.server.device.Sensor
+import eu.jhouse.server.device.Actor
+
+
+rule "Log high set sensors"
+	when
+		$s : Sensor(enabled == true)
+	then
+		System.out.println("Sensor: "+$s.getName()+", new state: "+$s.isEnabled());
+end
+
+rule "Switch1 should manage Light1"
+	when
+		Sensor(enabled == true, name == "WejsciowyNowy-IN-1")
+		$a : Actor(name == "WyjsciowyNowyKlocek-IN-1")
+	then
+	    $a.changeEnabled();
+		System.out.println("Changing state for actor: "+$a.getName()+", new state: "+$a.isEnabled());
+end
+
+rule "change state for actor Light2"
+	when
+		Sensor(enabled == true, name == "WejsciowyNowy-IN-2")
+		$a : Actor(name == "WyjsciowyNowyKlocek-IN-2")
+	then
+	    $a.changeEnabled();
+		System.out.println("Changing state for actor: "+$a.getName()+", new state: "+$a.isEnabled());
+end
+
+rule "WejsciowyNowy-IN-3 should manage Light3 and Loght4"
+	when
+		Sensor(enabled == true, name == "WejsciowyNowy-IN-3")
+		$a3 : Actor(name == "WyjsciowyNowyKlocek-IN-3")
+		$a4 : Actor(name == "WyjsciowyNowyKlocek-IN-4")
+		$a5 : Actor(name == "WyjsciowyNowyKlocek-IN-5")
+		$a6 : Actor(name == "WyjsciowyStaryKlocek-IN-1")
+		$a7 : Actor(name == "WyjsciowyStaryKlocek-IN-2")
+		$a8 : Actor(name == "WyjsciowyStaryKlocek-IN-3")
+	then
+	    $a3.changeEnabled();
+	    $a4.changeEnabled();
+	    $a5.changeEnabled();
+	    $a6.changeEnabled();
+	    $a7.changeEnabled();
+	    $a8.changeEnabled();
+end
+
+rule "WejsciowyNowy-IN-4 should turn off all lights"
+	when
+		Sensor(enabled == true, name == "WejsciowyNowy-IN-4")
+		$a : Actor()
+	then
+	    $a.setEnabled(false);
+end

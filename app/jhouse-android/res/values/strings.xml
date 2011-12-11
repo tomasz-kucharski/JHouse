@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="applicationName">JHouse</string>
+    <string name="title">Main title</string>
+    <string name="target_text">Sample Target Text</string>
+    <string name="label.settings">Settings</string>
+    <string name="label.settings.hostName.title">Host name</string>
+    <string name="label.settings.hostName.summary">MQTT host address</string>
+    <string name="label.settings.notKnownValue.title">Title unknown</string>
+    <string name="label.settings.notKnownValue.summary">Summary unknown</string>
+    <string name="label.settings.topic.title">Topic name</string>
+    <string name="label.settings.topic.summary">MQTT topic name within mqtt server</string>
+    <string name="application_name">JHouse</string>
+</resources>

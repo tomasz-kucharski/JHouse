@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="applicationName">JHouse</string>
+    <string name="title">Główny Tytuł</string>
+    <string name="target_text">Sample Target Text</string>
+</resources>
