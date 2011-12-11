@@ -1,0 +1,5 @@
+# This file contains file names wildcards which should not be versioned by GIT scm
+target
+*.iml
+*.ipr
+*.iws

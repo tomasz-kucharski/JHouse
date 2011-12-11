@@ -91,9 +91,9 @@
 
             <!-- HARDWARE -->
             <dependency>
-                <groupId>org.owfs</groupId>
-                <artifactId>jowfsclient</artifactId>
-                <version>0.9.0</version>
+				<groupId>org.owfs</groupId>
+				<artifactId>jowfsclient</artifactId>
+				<version>1.1.1-SNAPSHOT</version>
             </dependency>
 
             <!-- MOBILE -->
