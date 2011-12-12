@@ -51,19 +51,10 @@
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-                    <artifactId>maven-android-plugin</artifactId>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
-                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-                <artifactId>maven-android-plugin</artifactId>
+<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+  <artifactId>android-maven-plugin</artifactId>
                 <configuration>
                     <deleteConflictingFiles>true</deleteConflictingFiles>
                     <sdk>

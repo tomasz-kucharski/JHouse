@@ -28,12 +28,12 @@ import android.util.Log;
 /*
  * @author tomekk
  * @since 2010-10-18, 01:12:48
+ * borrowed as starter from http://dalelane.co.uk/blog/?p=1599
 * PushService that does all of the work.
 * Most of the logic is borrowed from KeepAliveService.
 * http://code.google.com/p/android-random/source/browse/trunk/TestKeepAlive/src/org/devtcg/demo/keepalive/KeepAliveService.java?r=219
 */
-public class PushService extends Service
-{
+public class PushService extends Service {
     // this is the log tag
     public static final String TAG = "DemoPushService";
 
