@@ -3,17 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>pl.jhouse</groupId>
-		<artifactId>jhouse</artifactId>
+		<artifactId>jhouse-pom</artifactId>
 		<version>0.0.2-SNAPSHOT</version>
 	</parent>
-	<artifactId>jhouse-app</artifactId>
+	<artifactId>jhouse-app-pom</artifactId>
 	<packaging>pom</packaging>
 	<name>${artifactId}-${version}</name>
 
 	<modules>
 		<module>jhouse-server</module>
-		<module>jhouse-api</module>
-		<module>jhouse-android</module>
 	</modules>
 
 	<build>

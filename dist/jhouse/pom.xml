@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>pl.jhouse</groupId>
-        <artifactId>jhouse-app-pom</artifactId>
+        <artifactId>jhouse-pom</artifactId>
         <version>0.0.2-SNAPSHOT</version>
     </parent>
-    <artifactId>jhouse-server</artifactId>
-    <packaging>war</packaging>
+    <artifactId>jhouse</artifactId>
+    <packaging>jar</packaging>
 	<name>${artifactId}-${version}</name>
 
     <dependencies>
@@ -116,7 +116,7 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
-			</plugin>            
+			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
