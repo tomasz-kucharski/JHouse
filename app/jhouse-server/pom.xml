@@ -11,6 +11,17 @@
 	<name>${artifactId}-${version}</name>
 
     <dependencies>
+		<dependency>
+		  <groupId>jetty</groupId>
+		  <artifactId>jetty-util</artifactId>
+		  <version>6.1.26</version>
+		</dependency>
+		<dependency>
+		  <groupId>jetty</groupId>
+		  <artifactId>jetty</artifactId>
+		  <version>6.1.26</version>
+		</dependency>
+
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-api</artifactId>

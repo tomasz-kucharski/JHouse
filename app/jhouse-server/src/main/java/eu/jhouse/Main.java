@@ -6,6 +6,7 @@ import eu.jhouse.server.device.CommunicationWriter;
 import eu.jhouse.server.onewire.OWFSCommunicationReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
  * @author tomekk
@@ -18,12 +19,9 @@ public class Main {
         if (args.length != 0) {
             springPath = args[0];
         } else {
-            springPath = "WEB-INF/remoting-servlet.xml";
+            springPath = "jetty.xml";
         }
-
-        ApplicationContext context = new ClassPathXmlApplicationContext(springPath);
-//        Server server = (Server) context.getBean("server");
-//        server.run();
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext (springPath);
     }
 
 }
