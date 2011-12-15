@@ -12,6 +12,7 @@
 
 	<modules>
 		<module>jhouse-server</module>
+		<module>jhouse-server-dist</module>
 	</modules>
 
 	<build>

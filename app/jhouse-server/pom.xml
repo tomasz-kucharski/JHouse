@@ -88,37 +88,6 @@
 
     </dependencies>
     <build>
-        <!--<plugins>-->
-        <!--<plugin>-->
-        <!--<artifactId>maven-jar-plugin</artifactId>-->
-        <!--<configuration>-->
-        <!--<archive>-->
-        <!--<manifest>-->
-        <!--<addClasspath>true</addClasspath>-->
-        <!--<classpathPrefix>lib/</classpathPrefix>-->
-        <!--<mainClass>pl.jhouse.server.onewire.OneWireNetwork</mainClass>-->
-        <!--</manifest>-->
-        <!--</archive>-->
-        <!--</configuration>-->
-        <!--</plugin>-->
-        <!--<plugin>-->
-        <!--<artifactId>maven-assembly-plugin</artifactId>-->
-        <!--<executions>-->
-        <!--<execution>-->
-        <!--<phase>package</phase>-->
-        <!--<goals>-->
-        <!--<goal>assembly</goal>-->
-        <!--</goals>-->
-        <!--<configuration>-->
-        <!--<descriptors>-->
-        <!--<descriptor>src/main/assembly/dist.xml</descriptor>-->
-        <!--</descriptors>-->
-        <!--</configuration>-->
-        <!--</execution>-->
-        <!--</executions>-->
-        <!--</plugin>-->
-
-        <!--</plugins>-->
         <plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

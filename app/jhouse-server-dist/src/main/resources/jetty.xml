@@ -23,7 +23,7 @@
 								<list>
 									<bean class="org.mortbay.jetty.webapp.WebAppContext">
 										<property name="contextPath" value="/"/>
-										<property name="war" value="src/main/webapp">
+										<property name="war" value=".">
 										</property>
 									</bean>
 								</list>
