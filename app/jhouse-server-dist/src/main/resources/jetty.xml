@@ -2,8 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-	<bean id="Server"
-		  class="org.mortbay.jetty.Server" init-method="start" destroy-method="stop">
+	<bean id="Server" class="org.mortbay.jetty.Server" init-method="start" destroy-method="stop">
 		<property name="connectors">
 			<list>
 				<bean id="Connector" class="org.mortbay.jetty.nio.SelectChannelConnector">
@@ -13,18 +12,15 @@
 		</property>
 
 		<property name="handler">
-			<bean id="handlers"
-				  class="org.mortbay.jetty.handler.HandlerCollection">
+			<bean id="handlers" class="org.mortbay.jetty.handler.HandlerCollection">
 				<property name="handlers">
 					<list>
-						<bean id="contexts"
-							  class="org.mortbay.jetty.handler.ContextHandlerCollection">
+						<bean id="contexts" class="org.mortbay.jetty.handler.ContextHandlerCollection">
 							<property name="handlers">
 								<list>
 									<bean class="org.mortbay.jetty.webapp.WebAppContext">
 										<property name="contextPath" value="/"/>
-										<property name="war" value=".">
-										</property>
+										<property name="war" ref="warLocation"/>
 									</bean>
 								</list>
 							</property>
@@ -34,4 +30,7 @@
 			</bean>
 		</property>
 	</bean>
-</beans>
+	<bean id="warLocation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="eu.jhouse.server.Main"/>
+		<property name="targetMethod" value="getWEBINFfileLocation"/>
+	</bean></beans>

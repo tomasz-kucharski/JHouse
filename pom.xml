@@ -5,7 +5,7 @@
     <artifactId>jhouse-pom</artifactId>
     <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>${artifactId}-${version}</name>
+    <name>${project.artifactId}-${project.version}</name>
     <modules>
         <module>app</module>
     </modules>
@@ -128,9 +128,9 @@
             </dependency>
 
             <dependency>
-                <groupId>${groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>jhouse-api</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--TESTING-->

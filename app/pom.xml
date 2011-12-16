@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>jhouse-app-pom</artifactId>
 	<packaging>pom</packaging>
-	<name>${artifactId}-${version}</name>
+	<name>${project.artifactId}-${project.version}</name>
 
 	<modules>
 		<module>jhouse-server</module>
