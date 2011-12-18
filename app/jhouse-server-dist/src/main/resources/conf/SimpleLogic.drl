@@ -13,8 +13,8 @@ end
 
 rule "Switch1 should manage Light1"
 	when
-		Sensor(enabled == true, name == "WejsciowyNowy-IN-1")
-		$a : Actor(name == "WyjsciowyNowyKlocek-IN-1")
+		Sensor(enabled == true, name == "InputDevice1-IN-1")
+		$a : Actor(name == "OutputDevice1-IN-1")
 	then
 	    $a.changeEnabled();
 		System.out.println("Changing state for actor: "+$a.getName()+", new state: "+$a.isEnabled());
@@ -22,22 +22,22 @@ end
 
 rule "change state for actor Light2"
 	when
-		Sensor(enabled == true, name == "WejsciowyNowy-IN-2")
-		$a : Actor(name == "WyjsciowyNowyKlocek-IN-2")
+		Sensor(enabled == true, name == "InputDevice1-IN-2")
+		$a : Actor(name == "OutputDevice1-IN-2")
 	then
 	    $a.changeEnabled();
 		System.out.println("Changing state for actor: "+$a.getName()+", new state: "+$a.isEnabled());
 end
 
-rule "WejsciowyNowy-IN-3 should manage Light3 and Loght4"
+rule "InputDevice1-IN-3 should manage Light3 and Loght4"
 	when
-		Sensor(enabled == true, name == "WejsciowyNowy-IN-3")
-		$a3 : Actor(name == "WyjsciowyNowyKlocek-IN-3")
-		$a4 : Actor(name == "WyjsciowyNowyKlocek-IN-4")
-		$a5 : Actor(name == "WyjsciowyNowyKlocek-IN-5")
-		$a6 : Actor(name == "WyjsciowyStaryKlocek-IN-1")
-		$a7 : Actor(name == "WyjsciowyStaryKlocek-IN-2")
-		$a8 : Actor(name == "WyjsciowyStaryKlocek-IN-3")
+		Sensor(enabled == true, name == "InputDevice1-IN-3")
+		$a3 : Actor(name == "OutputDevice1-IN-3")
+		$a4 : Actor(name == "OutputDevice1-IN-4")
+		$a5 : Actor(name == "OutputDevice1-IN-5")
+		$a6 : Actor(name == "OutputDevice2-IN-1")
+		$a7 : Actor(name == "OutputDevice2-IN-2")
+		$a8 : Actor(name == "OutputDevice2-IN-3")
 	then
 	    $a3.changeEnabled();
 	    $a4.changeEnabled();
@@ -47,9 +47,9 @@ rule "WejsciowyNowy-IN-3 should manage Light3 and Loght4"
 	    $a8.changeEnabled();
 end
 
-rule "WejsciowyNowy-IN-4 should turn off all lights"
+rule "InputDevice1-IN-4 should turn off all lights"
 	when
-		Sensor(enabled == true, name == "WejsciowyNowy-IN-4")
+		Sensor(enabled == true, name == "InputDevice1-IN-4")
 		$a : Actor()
 	then
 	    $a.setEnabled(false);

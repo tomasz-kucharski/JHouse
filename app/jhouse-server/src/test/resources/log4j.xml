@@ -10,14 +10,9 @@
 			<param name="ConversionPattern" value="%d %-5p [%t] [%C{1}] %m%n"/>
 		</layout>
 	</appender>
-	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="log.log"/>
-		<param name="MaxFileSize" value="10MB"/>
-		<param name="Threshold" value="DEBUG"/>
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d %-5p [%t] [%C{1}] %m%n"/>
-		</layout>
-	</appender>
+	<category name="org.mortbay">
+		<priority value="INFO"/>
+	</category>
 	<category name="org.slf4j">
 		<priority value="INFO"/>
 	</category>
@@ -29,6 +24,5 @@
 	</category>
 	<root>
 		<appender-ref ref="CONSOLE"/>
-		<appender-ref ref="FILE"/>
 	</root>
 </log4j:configuration>

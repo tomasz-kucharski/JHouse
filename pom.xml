@@ -38,7 +38,6 @@
 					<version>3.0.0</version>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
 					<version>2.2.1</version>
 				</plugin>
@@ -47,9 +46,12 @@
 					<version>2.3.2</version>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>2.1.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.2.2</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

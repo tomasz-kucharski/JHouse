@@ -5,6 +5,7 @@ import eu.jhouse.server.brain.Brain;
 import eu.jhouse.server.device.Actor;
 import eu.jhouse.server.device.OutputSwitchDevice;
 import eu.jhouse.server.device.Sensor;
+import java.io.File;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,12 +20,13 @@ import static org.mockito.Mockito.verify;
  * @since 2010-10-07, 23:26:27
  */
 public class BrainTest {
-    private static final String LOGIC_PATH = "eu/jhouse/server/brain/TestSimpleLogic.drl";
+    private static final String LOGIC_PATH = "src/test/resources/conf/TestSimpleLogic.drl";
 
     @Test
     public void shouldLoadSimpleLogic() {
         //given
         Brain brain = new Brain();
+
         brain.setPathToLogicFile(LOGIC_PATH);
 
         //when

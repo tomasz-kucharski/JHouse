@@ -10,12 +10,15 @@ import org.drools.runtime.rule.FactHandle;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author tomekk
  * @since 2010-10-07, 22:46:54
  */
 public class Brain {
+	Logger log = LoggerFactory.getLogger(Brain.class);
 
     private Map<Object, FactHandle> facts = new HashMap<Object,FactHandle>();
 
@@ -56,7 +59,8 @@ public class Brain {
 
     private KnowledgeBase readKnowledgeBase() {
         KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
-        kbuilder.add(ResourceFactory.newClassPathResource(pathToLogicFile), ResourceType.DRL);
+		log.info("Loading configuration from file: '"+pathToLogicFile+"'");
+		kbuilder.add(ResourceFactory.newFileResource(pathToLogicFile), ResourceType.DRL);
         KnowledgeBuilderErrors errors = kbuilder.getErrors();
         if (errors.size() > 0) {
             for (KnowledgeBuilderError error: errors) {
@@ -66,6 +70,7 @@ public class Brain {
         }
         KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
         kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
+		log.info("Configuration loaded successfully: '"+pathToLogicFile+"'");
         return kbase;
     }
 
