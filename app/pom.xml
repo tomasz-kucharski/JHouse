@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>eu.jhouse</groupId>
 		<artifactId>jhouse-pom</artifactId>
-		<version>0.0.2-SNAPSHOT</version>
+		<version>0.2.0</version>
 	</parent>
 	<artifactId>jhouse-app-pom</artifactId>
 	<packaging>pom</packaging>
