@@ -11,7 +11,7 @@
 	</modules>
 
 	<scm>
-		<connection>scm:git:git@github.com/tomasz-kucharski/jhouse.git</connection>
+		<connection>scm:git:git://github.com/tomasz-kucharski/jhouse.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/tomasz-kucharski/jhouse.git</developerConnection>
 		<url>https://github.com/tomasz-kucharski/jhouse</url>
 	</scm>
