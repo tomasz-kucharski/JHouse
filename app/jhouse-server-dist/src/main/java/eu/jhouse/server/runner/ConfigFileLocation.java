@@ -14,6 +14,8 @@ public class ConfigFileLocation {
 	private static String installationDirectory = getApplicationFileLocation().substring(0, getApplicationFileLocation().lastIndexOf("/"));
 
 	private static String configurationDirectory = getInstallationDirectory() + "/conf/";
+	
+	private static String logDirectory = getInstallationDirectory().substring(5) + "/logs/";
 
 	public static String getApplicationFileLocation() {
 		if (applicationFileLocation == null) {
@@ -42,5 +44,13 @@ public class ConfigFileLocation {
 
 	public static String getLoggingConfigurationFile() {
 		return getConfigurationDirectory() + "log4j.xml";
+	}
+
+	public static String getLogDirectory() {
+		return logDirectory;
+	}
+
+	public static void setLogDirectory(String logDirectory) {
+		ConfigFileLocation.logDirectory = logDirectory;
 	}
 }

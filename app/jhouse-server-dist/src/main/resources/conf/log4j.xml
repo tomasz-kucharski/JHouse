@@ -10,7 +10,7 @@
 			<param name="ConversionPattern" value="%d %-5p [%t] [%C{1}] %m%n"/>
 		</layout>
 	</appender>
-	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+	<appender name="FILE" class="eu.jhouse.server.runner.ApplicationContextLog4jFileRollingAppender">
 		<param name="File" value="log.log"/>
 		<param name="MaxFileSize" value="10MB"/>
 		<param name="Threshold" value="DEBUG"/>

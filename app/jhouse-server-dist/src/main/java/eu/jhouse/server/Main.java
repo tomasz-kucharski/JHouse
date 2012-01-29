@@ -29,17 +29,23 @@ public class Main {
 
 	private void parseArguments(String[] args) {
 		Option configOption = new Option("c", "config", true, "Location of configuration directory, eg. " + ConfigFileLocation.getConfigurationDirectory());
+		Option logOption = new Option("l", "logDir", true, "Location of log directory, eg. " + ConfigFileLocation.getLogDirectory());
 
 		Options options = new Options();
 		options.addOption(configOption);
+		options.addOption(logOption);
 
 		try {
 			CommandLine parse = new GnuParser().parse(options, args);
 			if (parse.hasOption(configOption.getOpt())) {
-				ConfigFileLocation.setConfigurationDirectory("file:/"+parse.getOptionValue(configOption.getOpt()));
+				ConfigFileLocation.setConfigurationDirectory("file:/"+parse.getOptionValue(configOption.getOpt())+"/");
+			}
+			if (parse.hasOption(logOption.getOpt())) {
+				ConfigFileLocation.setLogDirectory(parse.getOptionValue(logOption.getOpt())+"/");
 			}
 		} catch (ParseException e) {
 			HelpFormatter usageFormatter = new HelpFormatter();
+			usageFormatter.setWidth(120);
 			usageFormatter.printHelp("usage", options);
 			System.exit(0);
 		}
@@ -50,6 +56,7 @@ public class Main {
 		DOMConfigurator.configure(new URL(ConfigFileLocation.getLoggingConfigurationFile()));
 		log.info("Starting JHouse server...");
 		log.info("\tInstallation directory        : " + ConfigFileLocation.getInstallationDirectory());
+		log.info("\tLogging directory             : " + ConfigFileLocation.getLogDirectory());
 		log.info("\tApplication file              : " + ConfigFileLocation.getApplicationFileLocation());
 		log.info("\tLogging configuration file    : " + ConfigFileLocation.getLoggingConfigurationFile());
 		log.info("\tConfiguration properties file : " + ConfigFileLocation.getConfigurationPropertiesFile());
