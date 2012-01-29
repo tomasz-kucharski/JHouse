@@ -1,7 +1,14 @@
 package eu.jhouse.server;
 
+import eu.jhouse.server.runner.ConfigFileLocation;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.ProtectionDomain;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,41 +21,38 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
 	private static Logger log = LoggerFactory.getLogger(Main.class);
 
-	public static final String DEFAULT_JETTY_CONFIGURATION_PATH = "jetty.xml";
-
-	public static final String LOGGING_FILENAME = "conf/log4j.xml";
-	
-	private String jettyConfigurationPath;
-	
 	public static void main(String args[]) throws Exception {
 		Main main = new Main();
 		main.parseArguments(args);
-		main.configureLogging();
 		main.startServer();
 	}
 
 	private void parseArguments(String[] args) {
-		if (args.length != 0) {
-			jettyConfigurationPath = args[0];
-		} else {
-			jettyConfigurationPath = DEFAULT_JETTY_CONFIGURATION_PATH;
+		Option configOption = new Option("c", "config", true, "Location of configuration directory, eg. " + ConfigFileLocation.getConfigurationDirectory());
+
+		Options options = new Options();
+		options.addOption(configOption);
+
+		try {
+			CommandLine parse = new GnuParser().parse(options, args);
+			if (parse.hasOption(configOption.getOpt())) {
+				ConfigFileLocation.setConfigurationDirectory("file:/"+parse.getOptionValue(configOption.getOpt()));
+			}
+		} catch (ParseException e) {
+			HelpFormatter usageFormatter = new HelpFormatter();
+			usageFormatter.printHelp("usage", options);
+			System.exit(0);
 		}
 	}
 
-	private  void startServer() {
-		log.debug("Starting JHouse Jetty server using:"+jettyConfigurationPath);
-		new ClassPathXmlApplicationContext(jettyConfigurationPath);
-		log.debug("JHouse Jetty server started");
-	}
-
-	private void configureLogging() {
-		System.out.println("Loading logging configuration...");
-		DOMConfigurator.configure(LOGGING_FILENAME);
-	}
-
-	public static String getWEBINFfileLocation() {
-		ProtectionDomain protectionDomain = Main.class.getProtectionDomain();
-		URL location = protectionDomain.getCodeSource().getLocation();
-		return location.toExternalForm();
+	private void startServer() throws MalformedURLException {
+		System.out.println("Starting JHouse at location: " + ConfigFileLocation.getApplicationFileLocation());
+		DOMConfigurator.configure(new URL(ConfigFileLocation.getLoggingConfigurationFile()));
+		log.info("Starting JHouse server...");
+		log.info("\tInstallation directory        : " + ConfigFileLocation.getInstallationDirectory());
+		log.info("\tApplication file              : " + ConfigFileLocation.getApplicationFileLocation());
+		log.info("\tLogging configuration file    : " + ConfigFileLocation.getLoggingConfigurationFile());
+		log.info("\tConfiguration properties file : " + ConfigFileLocation.getConfigurationPropertiesFile());
+		new ClassPathXmlApplicationContext("classpath:jetty.xml");
 	}
 }

@@ -8,19 +8,20 @@ import eu.jhouse.server.NetworkException;
  */
 public interface CommunicationWriter {
 
-    /**
-     * Add device to awaiting queue
-     * @param device
-     */
-    void push(Device device);
+	/**
+	 * Add device to awaiting queue
+	 *
+	 * @param device
+	 */
+	void push(Device device);
 
-    /**
-     * Flush queue
-     */
-    void flush() throws NetworkException;
+	/**
+	 * Flush queue
+	 */
+	void flush() throws NetworkException;
 
-    /**
-     * Clear queue, should invoked after initialization
-     */
-    void clear();
+	/**
+	 * Clear queue, should invoked after initialization
+	 */
+	void clear();
 }

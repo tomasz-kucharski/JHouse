@@ -8,7 +8,7 @@ import eu.jhouse.server.NetworkException;
  */
 public interface DeviceNetworkConnector {
 
-    String read(String command) throws NetworkException;
+	String read(String command) throws NetworkException;
 
-    void write(String command, String parameters) throws NetworkException;
+	void write(String command, String parameters) throws NetworkException;
 }

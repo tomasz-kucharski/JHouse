@@ -9,15 +9,15 @@ import eu.jhouse.server.device.ActorsChangedEvent;
  */
 public class ActorChangedBrainConnector implements Command {
 
-    private Brain brain;
+	private Brain brain;
 
-    @Override
-    public void execute(Object event) {
-        ActorsChangedEvent changedEvent = (ActorsChangedEvent) event;
-            brain.thinkForNewFacts(changedEvent.getActorsChanged());
-    }
+	@Override
+	public void execute(Object event) {
+		ActorsChangedEvent changedEvent = (ActorsChangedEvent) event;
+		brain.thinkForNewFacts(changedEvent.getActorsChanged());
+	}
 
-    public void setBrain(Brain brain) {
-        this.brain = brain;
-    }
+	public void setBrain(Brain brain) {
+		this.brain = brain;
+	}
 }

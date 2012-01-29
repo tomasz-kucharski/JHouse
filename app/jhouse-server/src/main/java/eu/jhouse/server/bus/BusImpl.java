@@ -1,6 +1,9 @@
 package eu.jhouse.server.bus;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author tomekk
@@ -16,14 +19,14 @@ public class BusImpl implements Bus {
 	}
 
 	@Override
-    public void dispatch(Object event) {
+	public void dispatch(Object event) {
 		Set<Command> eventCommandList = eventMapping.get(event.getClass());
 		if (eventCommandList != null) {
 			for (Command command : eventCommandList) {
 				try {
 					command.execute(event);
 				} catch (Throwable throwable) {
-					log.warn("Command: "+command+" on event: "+event+" threw exception",throwable);
+					log.warn("Command: " + command + " on event: " + event + " threw exception", throwable);
 				}
 			}
 		}
@@ -34,7 +37,7 @@ public class BusImpl implements Bus {
 		if (eventCommandList == null) {
 			eventCommandList = new HashSet<Command>();
 			eventCommandList.add(command);
-			eventMapping.put(eventClass,eventCommandList);
+			eventMapping.put(eventClass, eventCommandList);
 		} else {
 			eventCommandList.add(command);
 		}

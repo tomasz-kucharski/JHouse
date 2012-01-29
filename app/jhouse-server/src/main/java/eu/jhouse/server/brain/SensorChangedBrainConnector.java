@@ -8,15 +8,15 @@ import eu.jhouse.server.device.SensorsChangedEvent;
  * @since 2010-10-09, 00:03:55
  */
 public class SensorChangedBrainConnector implements Command {
-    private Brain brain;
+	private Brain brain;
 
-    @Override
-    public void execute(Object event) {
-        SensorsChangedEvent changedEvent = (SensorsChangedEvent) event;
-            brain.thinkForNewFacts(changedEvent.getSensorChanged());
-    }
+	@Override
+	public void execute(Object event) {
+		SensorsChangedEvent changedEvent = (SensorsChangedEvent) event;
+		brain.thinkForNewFacts(changedEvent.getSensorChanged());
+	}
 
-    public void setBrain(Brain brain) {
-        this.brain = brain;
-    }
+	public void setBrain(Brain brain) {
+		this.brain = brain;
+	}
 }

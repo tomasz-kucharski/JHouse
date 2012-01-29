@@ -10,31 +10,32 @@ import org.owfs.jowfsclient.OwfsClient;
  */
 public class OWFSDeviceNetworkConnector implements DeviceNetworkConnector {
 
-    private String path;
+	private String path;
 
-    private OwfsClient client;
-    private static final String SLASH = "/";
+	private OwfsClient client;
 
-    public OWFSDeviceNetworkConnector(String path, OwfsClient client) {
-        this.path = path;
-        this.client = client;
-    }
+	private static final String SLASH = "/";
 
-    @Override
-    public String read(String command) throws NetworkException {
-        try {
-            return client.read(path+SLASH+command);
-        } catch (Exception e) {
-            throw new NetworkException("Error reading. Path: '"+path+"', command: '"+command+"'",e);
-        }
-    }
+	public OWFSDeviceNetworkConnector(String path, OwfsClient client) {
+		this.path = path;
+		this.client = client;
+	}
 
-    @Override
-    public void write(String command, String parameters) throws NetworkException {
-        try {
-            client.write(path+SLASH+command, parameters);
-        } catch (Exception e) {
-            throw new NetworkException("Error writing. Path: '"+path+"', command: '"+command+"'",e);
-        }
-    }
+	@Override
+	public String read(String command) throws NetworkException {
+		try {
+			return client.read(path + SLASH + command);
+		} catch (Exception e) {
+			throw new NetworkException("Error reading. Path: '" + path + "', command: '" + command + "'", e);
+		}
+	}
+
+	@Override
+	public void write(String command, String parameters) throws NetworkException {
+		try {
+			client.write(path + SLASH + command, parameters);
+		} catch (Exception e) {
+			throw new NetworkException("Error writing. Path: '" + path + "', command: '" + command + "'", e);
+		}
+	}
 }

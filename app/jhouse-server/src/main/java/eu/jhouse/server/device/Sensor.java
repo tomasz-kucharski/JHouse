@@ -6,25 +6,25 @@ package eu.jhouse.server.device;
  */
 public class Sensor extends Unit {
 
-    private boolean enabled;
+	private boolean enabled;
 
-    private long lastEnabledChangedTime;
+	private long lastEnabledChangedTime;
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-    public long getLastEnabledChangedTime() {
-        return lastEnabledChangedTime;
-    }
+	public long getLastEnabledChangedTime() {
+		return lastEnabledChangedTime;
+	}
 
-    public boolean setEnabled(boolean enabled) {
-        if (this.enabled != enabled) {
-            this.enabled = enabled;
-            this.lastEnabledChangedTime = System.currentTimeMillis();
-            return true;
-        } else {
-            return false;
-        }
-    }
+	public boolean setEnabled(boolean enabled) {
+		if (this.enabled != enabled) {
+			this.enabled = enabled;
+			this.lastEnabledChangedTime = System.currentTimeMillis();
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -6,27 +6,27 @@ package eu.jhouse.server.device;
  */
 public class Actor extends Unit {
 
-    private boolean enabled;
+	private boolean enabled;
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-    public void changeEnabled() {
-        this.enabled = !this.enabled;
-        stateChanged();
-    }
+	public void changeEnabled() {
+		this.enabled = !this.enabled;
+		stateChanged();
+	}
 
-    public boolean setEnabled(boolean enabled) {
-        if (this.enabled != enabled) {
-            changeEnabled();
-            return true;
-        } else {
-            return false;
-        }
-    }
+	public boolean setEnabled(boolean enabled) {
+		if (this.enabled != enabled) {
+			changeEnabled();
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public void stateChanged() {
-        ((OutputSwitchDevice)getDevice()).sendSynchronizeRequest();
-    }
+	public void stateChanged() {
+		((OutputSwitchDevice) getDevice()).sendSynchronizeRequest();
+	}
 }

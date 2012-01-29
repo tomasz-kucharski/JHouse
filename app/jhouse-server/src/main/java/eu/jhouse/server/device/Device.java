@@ -9,43 +9,45 @@ import eu.jhouse.server.bus.Bus;
  */
 public abstract class Device {
 
-    protected String id;
-    protected String name;
+	protected String id;
 
-    protected DeviceNetworkConnector networkConnector;
-    private Bus bus;
+	protected String name;
 
-    public void setNetworkConnector(DeviceNetworkConnector networkConnector) {
-        this.networkConnector = networkConnector;
-    }
+	protected DeviceNetworkConnector networkConnector;
 
-    public String getId() {
-        return id;
-    }
+	private Bus bus;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setNetworkConnector(DeviceNetworkConnector networkConnector) {
+		this.networkConnector = networkConnector;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public Bus getBus() {
-        return bus;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setBus(Bus bus) {
-        this.bus = bus;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public abstract void initOnStartup() throws NetworkException;
+	public Bus getBus() {
+		return bus;
+	}
 
-    public abstract void read() throws NetworkException;
+	public void setBus(Bus bus) {
+		this.bus = bus;
+	}
 
-    public abstract void write() throws NetworkException;
+	public abstract void initOnStartup() throws NetworkException;
+
+	public abstract void read() throws NetworkException;
+
+	public abstract void write() throws NetworkException;
 }

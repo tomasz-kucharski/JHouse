@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<beans>
+	<bean id="PropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" ref="ConfigurationPropertiesFileLocation"/>
+	</bean>
+
 	<bean id="Server" class="org.mortbay.jetty.Server" init-method="start" destroy-method="stop">
 		<property name="connectors">
 			<list>
 				<bean id="Connector" class="org.mortbay.jetty.nio.SelectChannelConnector">
-					<property name="port" value="8181"/>
+					<property name="port" value="${jhouse.server.http.port}"/>
 				</bean>
 			</list>
 		</property>
@@ -20,7 +25,8 @@
 								<list>
 									<bean class="org.mortbay.jetty.webapp.WebAppContext">
 										<property name="contextPath" value="/"/>
-										<property name="war" ref="warLocation"/>
+										<property name="war" ref="WarLocation"/>
+										<property name="extraClasspath" ref="ConfigurationDirectoryLocation"/>
 									</bean>
 								</list>
 							</property>
@@ -30,7 +36,16 @@
 			</bean>
 		</property>
 	</bean>
-	<bean id="warLocation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="targetClass" value="eu.jhouse.server.Main"/>
-		<property name="targetMethod" value="getWEBINFfileLocation"/>
-	</bean></beans>
+	<bean id="WarLocation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="eu.jhouse.server.runner.ConfigFileLocation"/>
+		<property name="targetMethod" value="getApplicationFileLocation"/>
+	</bean>
+	<bean id="ConfigurationDirectoryLocation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="eu.jhouse.server.runner.ConfigFileLocation"/>
+		<property name="targetMethod" value="getConfigurationDirectory"/>
+	</bean>
+	<bean id="ConfigurationPropertiesFileLocation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="eu.jhouse.server.runner.ConfigFileLocation"/>
+		<property name="targetMethod" value="getConfigurationPropertiesFile"/>
+	</bean>
+</beans>

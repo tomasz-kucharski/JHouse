@@ -8,14 +8,14 @@ import java.util.Set;
  */
 public class ActorsChangedEvent {
 
-    private Set<Actor> actorsChanged;
+	private Set<Actor> actorsChanged;
 
-    public ActorsChangedEvent(Set<Actor> actorSet) {
-        this.actorsChanged = actorSet;
+	public ActorsChangedEvent(Set<Actor> actorSet) {
+		this.actorsChanged = actorSet;
 
-    }
+	}
 
-    public Set<Actor> getActorsChanged() {
-        return actorsChanged;
-    }
+	public Set<Actor> getActorsChanged() {
+		return actorsChanged;
+	}
 }

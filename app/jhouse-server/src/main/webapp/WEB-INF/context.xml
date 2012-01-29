@@ -6,7 +6,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-	<context:property-placeholder location="file:conf/jhouse.properties" />
+	<context:property-placeholder location="classpath*:jhouse.properties"/>
 
 	<bean id="server" class="eu.jhouse.server.Server" init-method="run">
 		<property name="reader" ref="communicationReader"/>
@@ -14,7 +14,13 @@
 	</bean>
 
 	<bean id="brain" class="eu.jhouse.server.brain.Brain" init-method="init">
-		<property name="pathToLogicFile" value="${jhouse.brain.logicFilePath}"/>
+		<property name="pathToLogicFile">
+			<bean class="java.lang.String" factory-bean="LogicResource" factory-method="getPath"/>
+		</property>
+	</bean>
+
+	<bean id="LogicResource" class="org.springframework.core.io.ClassPathResource">
+		<constructor-arg value="${jhouse.brain.logicFilePath}"/>
 	</bean>
 
 	<bean id="owfsFileSystemFactory" class="eu.jhouse.server.onewire.OWFSFileSystemFactory">

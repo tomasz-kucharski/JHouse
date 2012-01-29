@@ -6,7 +6,7 @@ package eu.jhouse.server;
  */
 public class NetworkException extends Exception {
 
-    public NetworkException(String message, Throwable e) {
-        super(message,e);
-    }
+	public NetworkException(String message, Throwable e) {
+		super(message, e);
+	}
 }

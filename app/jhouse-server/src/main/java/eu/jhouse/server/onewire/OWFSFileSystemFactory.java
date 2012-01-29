@@ -10,20 +10,20 @@ import org.owfs.jowfsclient.OwfsClientFactory;
  */
 public class OWFSFileSystemFactory {
 
-    private String owfsServerAddress;
+	private String owfsServerAddress;
 
-    public void setOWFSServerAddress(String OWFSServerAddress) {
-        this.owfsServerAddress = OWFSServerAddress;
-    }
+	public void setOWFSServerAddress(String OWFSServerAddress) {
+		this.owfsServerAddress = OWFSServerAddress;
+	}
 
-    public OWFSFileSystem createOWFSFileSystem() throws Exception {
-        OwfsClient client = OwfsClientFactory.newOwfsClient(owfsServerAddress,4304, true);
-        client.setDeviceDisplayFormat(Enums.OwDeviceDisplayFormat.OWNET_DDF_F_DOT_IC);
-        client.setBusReturn(Enums.OwBusReturn.OWNET_BUSRETURN_ON);
-        client.setPersistence(Enums.OwPersistence.OWNET_PERSISTENCE_ON);
-        OWFSFileSystem fileSystem = new OWFSFileSystem();
-        fileSystem.setClient(client);
-        return fileSystem;
-    }
+	public OWFSFileSystem createOWFSFileSystem() throws Exception {
+		OwfsClient client = OwfsClientFactory.newOwfsClient(owfsServerAddress, 4304, true);
+		client.setDeviceDisplayFormat(Enums.OwDeviceDisplayFormat.OWNET_DDF_F_DOT_IC);
+		client.setBusReturn(Enums.OwBusReturn.OWNET_BUSRETURN_ON);
+		client.setPersistence(Enums.OwPersistence.OWNET_PERSISTENCE_ON);
+		OWFSFileSystem fileSystem = new OWFSFileSystem();
+		fileSystem.setClient(client);
+		return fileSystem;
+	}
 
 }

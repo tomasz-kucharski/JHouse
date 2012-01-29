@@ -8,13 +8,13 @@ import java.util.Set;
  */
 public class SensorsChangedEvent {
 
-    private Set<Sensor> sensorChanged;
+	private Set<Sensor> sensorChanged;
 
-    public SensorsChangedEvent(Set<Sensor> sensorChanged) {
-        this.sensorChanged = sensorChanged;
-    }
+	public SensorsChangedEvent(Set<Sensor> sensorChanged) {
+		this.sensorChanged = sensorChanged;
+	}
 
-    public Set<Sensor> getSensorChanged() {
-        return sensorChanged;
-    }
+	public Set<Sensor> getSensorChanged() {
+		return sensorChanged;
+	}
 }
