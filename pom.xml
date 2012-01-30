@@ -67,6 +67,13 @@
 	</build>
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>eu.jhouse</groupId>
+				<artifactId>jhouse-server</artifactId>
+				<version>${project.version}</version>
+				<type>war</type>
+			</dependency>
+
 			<!--BRAIN -->
 			<dependency>
 				<groupId>org.drools</groupId>

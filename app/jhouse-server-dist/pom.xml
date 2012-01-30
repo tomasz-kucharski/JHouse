@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>eu.jhouse</groupId>
@@ -11,6 +10,11 @@
 	<name>${project.artifactId}-${project.version}</name>
 
 	<dependencies>
+		<dependency>
+			<groupId>eu.jhouse</groupId>
+			<artifactId>jhouse-server</artifactId>
+			<type>war</type>
+		</dependency>
 		<dependency>
 			<groupId>jetty</groupId>
 			<artifactId>jetty-util</artifactId>
@@ -24,12 +28,6 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>eu.jhouse</groupId>
-			<artifactId>jhouse-server</artifactId>
-			<version>${project.version}</version>
-			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
