@@ -1,8 +1,11 @@
 package eu.jhouse.server.onewire;
 
 import eu.jhouse.server.NetworkException;
+import eu.jhouse.server.bus.Bus;
 import eu.jhouse.server.device.CommunicationReader;
+import eu.jhouse.server.device.CommunicationWriter;
 import eu.jhouse.server.device.Device;
+import eu.jhouse.server.device.OutputSwitchDevice;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,6 +24,10 @@ public class OWFSCommunicationReader implements CommunicationReader {
 	private static final Logger log = LoggerFactory.getLogger(OWFSCommunicationReader.class);
 
 	private OWFSFileSystem fileSystem = new OWFSFileSystem();
+	
+	private Bus bus;
+
+	private CommunicationWriter communicationWriter;
 
 	private Map<String, Device> inputDevices = new HashMap<String, Device>();
 
@@ -29,15 +36,29 @@ public class OWFSCommunicationReader implements CommunicationReader {
 	@Override
 	public void setInputDevices(Set<Device> inputDevices) {
 		for (Device device : inputDevices) {
+			device.setBus(bus);
 			this.inputDevices.put(device.getId(), device);
 		}
 	}
 
 	@Override
-	public void setOutputDevices(Set<Device> inputDevices) {
-		for (Device device : inputDevices) {
+	public void setOutputDevices(Set<Device> outputDevices) {
+		// TODO this definitely must be refactored and removed
+		for (Device device : outputDevices) {
+			device.setBus(bus);
+			if (device instanceof OutputSwitchDevice) {
+				((OutputSwitchDevice)device).setConnectionWriter(communicationWriter);
+			}
 			this.outputDevices.put(device.getId(), device);
 		}
+	}
+
+	public void setCommunicationWriter(CommunicationWriter communicationWriter) {
+		this.communicationWriter = communicationWriter;
+	}
+
+	public void setBus(Bus bus) {
+		this.bus = bus;
 	}
 
 	public void setFileSystem(OWFSFileSystem fileSystem) {

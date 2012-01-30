@@ -2,11 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
-	   xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 	<context:property-placeholder location="classpath*:jhouse.properties"/>
+	<import resource="classpath*:devices.xml"/>
 
 	<bean id="server" class="eu.jhouse.server.Server" init-method="run">
 		<property name="reader" ref="communicationReader"/>
@@ -15,11 +16,11 @@
 
 	<bean id="brain" class="eu.jhouse.server.brain.Brain" init-method="init">
 		<property name="pathToLogicFile">
-			<bean class="java.lang.String" factory-bean="LogicResource" factory-method="getPath"/>
+			<bean class="java.lang.String" factory-bean="logicResource" factory-method="getPath"/>
 		</property>
 	</bean>
 
-	<bean id="LogicResource" class="org.springframework.core.io.ClassPathResource">
+	<bean id="logicResource" class="org.springframework.core.io.ClassPathResource">
 		<constructor-arg value="${jhouse.brain.logicFilePath}"/>
 	</bean>
 
@@ -55,158 +56,13 @@
 		<property name="fileSystem">
 			<bean factory-bean="owfsFileSystemFactory" factory-method="createOWFSFileSystem"/>
 		</property>
+		<property name="bus" ref="bus"/>
+		<property name="communicationWriter" ref="communicationWriter"/>
 
 		<!--Section below configures input devices list-->
-		<property name="inputDevices">
-			<set>
-				<ref bean="inputDevice1"/>
-				<ref bean="inputDevice2"/>
-			</set>
-		</property>
+		<property name="inputDevices" ref="inputDevices"/>
 
 		<!--Section below configures output devices list-->
-		<property name="outputDevices">
-			<set>
-				<ref bean="outputDevice1"/>
-				<ref bean="outputDevice2"/>
-			</set>
-		</property>
-	</bean>
-
-
-	<!--Details of every device - please configure according to your 1-wire devices -->
-	<bean id="inputDevice1" class="eu.jhouse.server.device.InputSwitchDevice">
-		<property name="id" value="29.BE1E00000000E9"/>
-		<property name="name" value="InputDevice1"/>
-		<property name="bus" ref="bus"/>
-		<property name="units">
-			<list>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice1-IN-1"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice1-IN-2"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice1-IN-3"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice1-IN-4"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice1-IN-5"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice1-IN-6"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice1-IN-7"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice1-IN-8"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	<bean id="inputDevice2" class="eu.jhouse.server.device.InputSwitchDevice">
-		<property name="id" value="29.74E00300000035"/>
-		<property name="name" value="InputDevice2"/>
-		<property name="bus" ref="bus"/>
-		<property name="units">
-			<list>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice2-IN-1"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice2-IN-2"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice2-IN-3"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice2-IN-4"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice2-IN-5"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice2-IN-6"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice2-IN-7"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Sensor">
-					<property name="name" value="InputDevice2-IN-8"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	<bean id="outputDevice2" class="eu.jhouse.server.device.OutputSwitchDevice">
-		<property name="id" value="29.83E003000000C2"/>
-		<property name="name" value="OutputDevice2"/>
-		<property name="bus" ref="bus"/>
-		<property name="connectionWriter" ref="communicationWriter"/>
-		<property name="units">
-			<list>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice2-IN-1"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice2-IN-2"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice2-IN-3"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice2-IN-4"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice2-IN-5"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice2-IN-6"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice2-IN-7"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice2-IN-8"/>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	<bean id="outputDevice1" class="eu.jhouse.server.device.OutputSwitchDevice">
-		<property name="id" value="29.BF1E00000000DE"/>
-		<property name="name" value="OutputDevice1"/>
-		<property name="bus" ref="bus"/>
-		<property name="connectionWriter" ref="communicationWriter"/>
-		<property name="units">
-			<list>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice1-IN-1"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice1-IN-2"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice1-IN-3"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice1-IN-4"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice1-IN-5"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice1-IN-6"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice1-IN-7"/>
-				</bean>
-				<bean class="eu.jhouse.server.device.Actor">
-					<property name="name" value="OutputDevice1-IN-8"/>
-				</bean>
-			</list>
-		</property>
+		<property name="outputDevices" ref="outputDevices"/>
 	</bean>
 </beans>
