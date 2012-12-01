@@ -1,1 +1,4 @@
-test
+Run this command to install missing libraries in your local repository.
+
+mvn install:install-file -DgroupId=com.ibm.wmqtt -DartifactId=wmqtt -Dversion=1.4.6 -Dpackaging=jar -Dfile=lib/wmqtt-1.4.6.jar
+mvn install:install-file -DgroupId=org.jowfsclient -DartifactId=jowfsclient -Dversion=1.1.1 -Dpackaging=jar -Dfile=lib/jowfsclient-1.1.1.jar
